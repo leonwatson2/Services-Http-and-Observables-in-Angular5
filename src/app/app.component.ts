@@ -4,7 +4,6 @@ import { TitleService } from './title.service'
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [ TitleService ]
 })
 export class AppComponent {
   title:string;
@@ -12,6 +11,8 @@ export class AppComponent {
   constructor(private titleService:TitleService){}
 
   ngOnInit(){
-    this.title = this.titleService.title  
+    setInterval(()=>{
+      this.title = this.titleService.title 
+    }, 2000)
   }
 }
