@@ -11,12 +11,12 @@ export class ChangeTitleComponent implements OnInit {
   constructor(private titleService:TitleService) { }
 
   ngOnInit() {
-    setInterval(()=>{
-      this.title = this.titleService.title 
-    }, 2000)
+      this.titleService.title.subscribe((newTitle:string)=>{
+        this.title = newTitle
+      })
   }
   changeTitle(e){
     const newTitle = e.target.value
-    this.titleService.title = newTitle
+    this.titleService.titleObserver.next(newTitle)
   }
 }

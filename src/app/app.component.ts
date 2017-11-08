@@ -11,8 +11,8 @@ export class AppComponent {
   constructor(private titleService:TitleService){}
 
   ngOnInit(){
-    setInterval(()=>{
-      this.title = this.titleService.title 
-    }, 2000)
+      this.titleService.title.subscribe((value:string)=>{
+        this.title = value
+      }) 
   }
 }
