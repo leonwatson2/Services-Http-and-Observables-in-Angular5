@@ -4,7 +4,7 @@
 #### //title.service.ts
 
 1. There's more than one way to make this cycle of data happen using observables.
-2. Currently we have to create to variables a Observable and Observer. One to be the observable that is subscribed to and one to send next events to that observable.
+2. Currently we have to create an Observable and an Observer. One to be the observable that is subscribed to and one to send next events to that observable.
 3. Well the good news is this can be done with just one variable that is a sub class of the Observable called a `Subject`.
 4. You can subscribe to a subject just like you can an Observable but on the Subject you can also call next.
 5. So here in the title.service.ts file we can make all the changing of the title happen in one line of code.
