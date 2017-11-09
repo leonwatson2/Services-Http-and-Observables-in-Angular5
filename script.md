@@ -1,15 +1,12 @@
-#TC
 
-1. 
-2. [HttpClient](##./script.md#HttpClient)
 
 ## The Subject Observables
 #### //title.service.ts
 
 1. There's more than one way to make this cycle of data happen using observables.
-2. Currently we have to create to variables a Observable and Observer. One to create the observable that is subscribed to and one to send next events to that observable.
-3. Well the good news is this can be done with just one variable that is a sub class of the Observable called the subject.
-4. You can subscribe to a subject just like you can an Observable but on the subject you can also call next.
+2. Currently we have to create to variables a Observable and Observer. One to be the observable that is subscribed to and one to send next events to that observable.
+3. Well the good news is this can be done with just one variable that is a sub class of the Observable called a `Subject`.
+4. You can subscribe to a subject just like you can an Observable but on the Subject you can also call next.
 5. So here in the title.service.ts file we can make all the changing of the title happen in one line of code.
 6. We'll first need to import `Subject` from `rxjs`
 ```
@@ -17,21 +14,21 @@ import { Subject } from 'rxjs/Subject'
 ```
 7. Then we don't need these imports from rxjs anymore.
 #### //app.component.ts
-8. Inside our app.component.ts file nothing will change there since all the `app.component` is subscribe to that title in the title service.
+8. Inside our app.component.ts file nothing will change there since all the `app.component` does is subscribe to that title in the title service.
 #### //change-title.component.ts
-9. Then inside our `change-title.component.ts` we need to change the variable that we call next on to the title variable in the `TitleService` 
+9. Then inside our `change-title.component.ts` we need to change the variable that we call next on, to the title variable in the `TitleService` 
 ```
 this.titleService.title.next(newTitle)
 ```
-10. then if we go back to the application you'll see that now we have the same functionality with a lot less code.
+10. Then if we go back to the application you'll see that now we have the same functionality with less code.
 
 ## HttpClient
-1. There will be times in your creating of your application that you'll want to get data from a database and you'll most likely use an API or backend of some kind that you query to.
+1. There will be times when your creating applications that you'll want to get data from a database and you'll most likely use an API or backend of some kind that you'll want to send http request to.
 2. In Angular this can be done using the HttpClientModule which allows us to send request and recieve responses to and from Web Services. 
-3. We're going to be using the [JsonPlaceHolder](https://jsonplaceholder.typicode.com/) to learn how to use the HttpClient in Angular to send and recieve request.
+3. We're going to be using the [JsonPlaceHolder](https://jsonplaceholder.typicode.com/), as our backend, to learn how to use the HttpClient in Angular to send and recieve request.
 #### app.module.ts
 4. First Thing we'll need to do is add the `httpClientModule` to the imports array of the module we'll be using it in. So that'll be our app.module. 
-    - So we'll import it at the top, from `@angular/common/http`
+    - We'll import it at the top, from `@angular/common/http`
     ```
     import { HttpClientModule } from '@angular/common/http'
     ```
@@ -40,11 +37,11 @@ this.titleService.title.next(newTitle)
 
 
 #### app.component.ts
-5. So let's go ahead to our `app.component.ts` file and import HttpClient at the top.
+5. Now let's go to our `app.component.ts` file and import HttpClient at the top.
 ```
 import { HttpClient } from '@angular/common/http'
 ```
-6. Then we'll inject it into our app component like we did out service.
+6. Then we'll inject it into our app component like we did our service.
     - This tells angular I want to use the HttpClient inside of my app component
 ```
 constructor(private titleService:TitleService, private http:HttpClient){}
@@ -52,6 +49,7 @@ constructor(private titleService:TitleService, private http:HttpClient){}
 ```
 8. So down in our ngOnInit method we'll go ahead and send a get request to the json placeholder api.
     - We'll do that by using an http client method called `get` which takes two parameters, the url and am optional options object for now we'll just go ahead and just give the url `https://jsonplaceholder.typicode.com/posts`
+    - Which will give us a list of fake posts to work with.
     ```
     this.http.get('https://jsonplaceholder.typicode.com/posts')
                 .subscribe((res)=>{
